@@ -5,6 +5,10 @@ format: html
 editor: visual
 ---
 
+```{r}
+library(tidyverse)
+```
+
 ## Functions
 
 Make a function that doubles a value.
@@ -86,4 +90,80 @@ temp_conversion <- function(scale, temp_in_K) {
   } else {print("Please select metric or english scale.")}
 }
 temp_conversion("english", 450)
+```
+
+### Functions with For Loops 
+
+I want to automate estimating the population size over a range of times, and at multiple growth rates (for a constant initial population and carrying capacity). What does the population size look like for different times and growth rates?
+
+PSEUDO CODE:
+
+out_matrix = matrix() \# this is where we can store outputs in a matrix
+
+for (i in sequence of growth rates) { \# i want to iterate over a bunch of different growth rates
+
+for (j in sequence of times) { \# i want to evaluate the population size at a bunch of different times
+
+calculate logistic with a function (for i over all j) \# i'm going to calculate the pop estimate at a growth rate and time
+
+then I want to store this calculation in our out_matrix \# i'm going to store this in my matrix
+
+}}
+
+Let's build this iteratively:
+
+1.  first create the function for calculating the logistic
+
+2.  then create a sequence of vectors of our times and create a storage vector of that length of our times
+
+3.  then create a for loop for the length of times and input our function into that for loop. We add the constant values that are in our logistic function. in our for loop we also populate the output into our empty vector (step 2)
+
+4.  to make this for multiple growth rates, we need to add the outer growth rate for loop and nest step 3.
+
+    -to do this, we need to add a sequence of the growth rates we want to iterate over.
+
+    -then we need to create a matrix to store the outputs where the rows are the number of times we're iterating (from our time vector) and the columns are the number of growth rate values from our growth rate sequence
+
+    -then we combined our for loops and we add an additional line with our new matrix name so that the values for the rows,columns will be populated
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+How can we add error/warning messages to our code?
+
+stop() or warning() messages
+
+ex: stop("Oops! Please input x type of value)
+
+### More Functions 
+
+Create a subset within a function and then return something based on that subset.
+
+```{r}
+dog_choice <- data.frame(dog_name = c("Khora", "Teddy", "Waffle", "Banjo", "Tallie"), food = c("everything", "salmon", "pancakes", "chicken", "enchiladas"))
+```
+
+```{r}
+#We are creating a subset of data that only returns the row we are going to input in the function in order to find data of that specific element. So we filter the data to the name that is inputted and we can grab any of the fields associated with that data value because it creates a 1 row dataframe.
+
+dog_menu <- function(enter_dog_name){
+  my_subset <- filter(dog_choice, dog_name == enter_dog_name)
+  print(paste("My name is", my_subset$dog_name, "and my favorite food is", my_subset$food))
+}
+
+dog_menu("Waffle")
+```
+
+## Function with a For Loop
+
+```{r}
+df_means <- function(df) {
+  for (i in seq_along(df)){
+    col_mean <- mean(df[[i]], na.rm = TRUE)
+    column_name <- colnames(df[i])
+    print(paste("The mean value of", column_name, "is", col_mean))
+  }
+}
+#Given some input dataframe, I am iterating over each column and getting the mean value of the values in that column and I am grabbing the column name for that ith column.
+
+df_means(df = mtcars)
 ```
