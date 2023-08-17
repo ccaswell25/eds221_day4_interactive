@@ -59,4 +59,31 @@ double_value2 <- function(my_dollars){
 double_value2(10) 
 ```
 
-## 
+## Conditions in Functions
+
+```{r}
+calculate_animal_age <- function(animal, age_human_years){
+  if (animal == "dog"){
+    age_human_years * 7
+  } else if (animal == "goat"){
+    age_human_years * 4.7
+  } else {paste("Animal not in logic. Please add dog or goat")}
+}
+calculate_animal_age("dog", 4)
+calculate_animal_age("goat", 5)
+calculate_animal_age("bird", 3)
+#We can see that if we add a part of the function that is not defined, it does not return anything so we must add an else statement. 
+```
+
+Write a function that, given temperature in Kelvin, if a user selects "metric" for the scale then return celsius, or if they select "english" then return degrees in Fahrenheit.
+
+```{r}
+temp_conversion <- function(scale, temp_in_K) {
+  if (scale == "metric"){
+    print(paste((temp_in_K - 273.15), "degrees celsius"))
+  } else if (scale == "english") {
+   print(paste(((temp_in_K - 273.15) * (9/5) + 32), "degrees fahrenheit"))
+  } else {print("Please select metric or english scale.")}
+}
+temp_conversion("english", 450)
+```
